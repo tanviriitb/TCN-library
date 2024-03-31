@@ -71,9 +71,11 @@ class TCN(nn.Module):
             torch.Tensor: Output of the TCN. Tensor will be of shape (N, C_out).
         """
 
-        out = self.embedder(inputs)
+        features = self.embedder(inputs)
 
         if self.has_linear_layer:
-            out = self.fc(out)
+            out = self.fc(features)
+        else:
+            out = features
 
-        return out
+        return features, out
