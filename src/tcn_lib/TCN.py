@@ -74,9 +74,9 @@ class TCN(nn.Module):
         """
 
         features = self.embedder(inputs)
-        out = copy.deepcopy(features)
+        out = features
 
         if self.has_linear_layer:
-            out = self.fc(out)
+            out = self.fc(features)
 
         return features, out
