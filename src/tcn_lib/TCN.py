@@ -3,6 +3,8 @@ from typing import List, Tuple, Union, Final
 import torch
 from torch import nn
 
+import copy
+
 from tcn_lib.blocks import LastElement1d, TemporalConvNet
 
 
@@ -72,10 +74,9 @@ class TCN(nn.Module):
         """
 
         features = self.embedder(inputs)
+        out = copy.deepcopy(features)
 
         if self.has_linear_layer:
-            out = self.fc(features)
-        else:
-            out = features
+            out = self.fc(out)
 
         return features, out
