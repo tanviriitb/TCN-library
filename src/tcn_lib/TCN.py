@@ -11,7 +11,6 @@ class TCN(nn.Module):
     has_linear_layer : Final[bool]
 
     def __init__(self,
-                 sequence_length: int,
                  input_size: int,
                  output_size: int,
                  channel_sizes: List[Union[int, Tuple[int, int]]],
@@ -57,7 +56,7 @@ class TCN(nn.Module):
                             residual=residual,
                             zero_init_residual=zero_init_residual))
         
-        self.pool = nn.AvgPool1d(kernel_size=sequence_length)
+        self.pool = nn.AdaptiveAvgPool1d(1)
 
         self.has_linear_layer = output_size != -1
 
@@ -76,7 +75,7 @@ class TCN(nn.Module):
 
         out = self.embedder(inputs)
 
-        features = self.pool(out)
+        features = self.pool(out).squeeze(-1)
 
         out = features
 
