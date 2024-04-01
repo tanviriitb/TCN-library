@@ -54,7 +54,7 @@ class TemporalConvNet(nn.Sequential):
                       residual=residual)
             ]
 
-        layers += GlobalAvgPool(kernel_size=sequence_length)
+        layers += [ GlobalAvgPool(kernel_size=sequence_length) ]
 
         super(TemporalConvNet, self).__init__(*layers)
 
