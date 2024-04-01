@@ -76,9 +76,11 @@ class TCN(nn.Module):
 
         out = self.embedder(inputs)
 
-        out = self.pool(out)
+        features = self.pool(out)
+
+        out = features
 
         if self.has_linear_layer:
             out = self.fc(out)
 
-        return out
+        return features, out
