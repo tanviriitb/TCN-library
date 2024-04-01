@@ -3,7 +3,7 @@ from typing import List, Tuple, Union, Final
 import torch
 from torch import nn
 
-from tcn_lib.blocks import GlobalAvgPool1d, TemporalConvNet
+from tcn_lib.blocks import TemporalConvNet
 
 
 class TCN(nn.Module):
@@ -46,7 +46,8 @@ class TCN(nn.Module):
         channel_sizes = [channel_size if type(channel_size) is not int else (channel_size, channel_size) for channel_size in channel_sizes]
 
         self.embedder = nn.Sequential(
-            TemporalConvNet(input_size,
+            TemporalConvNet(sequence_length,
+                            input_size,
                             channel_sizes,
                             kernel_size=kernel_size,
                             dropout=dropout,
@@ -55,7 +56,7 @@ class TCN(nn.Module):
                             bottleneck=bottleneck,
                             groups=groups,
                             residual=residual,
-                            zero_init_residual=zero_init_residual), GlobalAvgPool1d(kernel_size=sequence_length))
+                            zero_init_residual=zero_init_residual))
 
         self.has_linear_layer = output_size != -1
 
