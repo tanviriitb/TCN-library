@@ -8,13 +8,12 @@ from typing import List, Tuple, Union
 
 import torch.nn as nn
 
-from tcn_lib.blocks import TemporalBlock, TemporalBottleneck, GlobalAvgPool
+from tcn_lib.blocks import TemporalBlock, TemporalBottleneck
 from tcn_lib.utils import init_tcn_conv_weight, init_batch_norm
 
 class TemporalConvNet(nn.Sequential):
 
     def __init__(self,
-                 sequence_length: int,
                  num_inputs: int,
                  num_channels: List[Tuple[int, int]],
                  kernel_size: Union[int, List[int]],
@@ -53,8 +52,6 @@ class TemporalConvNet(nn.Sequential):
                       groups=groups,
                       residual=residual)
             ]
-
-        layers += [ GlobalAvgPool(kernel_size=sequence_length) ]
 
         super(TemporalConvNet, self).__init__(*layers)
 

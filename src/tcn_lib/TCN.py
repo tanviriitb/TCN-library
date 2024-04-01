@@ -46,8 +46,7 @@ class TCN(nn.Module):
         channel_sizes = [channel_size if type(channel_size) is not int else (channel_size, channel_size) for channel_size in channel_sizes]
 
         self.embedder = nn.Sequential(
-            TemporalConvNet(sequence_length,
-                            input_size,
+            TemporalConvNet(input_size,
                             channel_sizes,
                             kernel_size=kernel_size,
                             dropout=dropout,
@@ -57,6 +56,8 @@ class TCN(nn.Module):
                             groups=groups,
                             residual=residual,
                             zero_init_residual=zero_init_residual))
+        
+        self.pool = nn.AvgPool1d(sequence_length)
 
         self.has_linear_layer = output_size != -1
 
@@ -74,6 +75,8 @@ class TCN(nn.Module):
         """
 
         out = self.embedder(inputs)
+
+        out = self.pool(out)
 
         if self.has_linear_layer:
             out = self.fc(out)

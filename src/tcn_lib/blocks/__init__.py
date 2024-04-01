@@ -5,4 +5,3 @@ from tcn_lib.blocks.TemporalBlock import TemporalBlock
 from tcn_lib.blocks.TemporalBottleneck import TemporalBottleneck
 from tcn_lib.blocks.TemporalConvNet import TemporalConvNet
 from tcn_lib.blocks.TemporalLayer import TemporalLayer
-from tcn_lib.blocks.GlobalAvgPool import GlobalAvgPool
