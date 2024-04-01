@@ -3,8 +3,6 @@ from typing import List, Tuple, Union, Final
 import torch
 from torch import nn
 
-import copy
-
 from tcn_lib.blocks import LastElement1d, TemporalConvNet
 
 
@@ -73,10 +71,9 @@ class TCN(nn.Module):
             torch.Tensor: Output of the TCN. Tensor will be of shape (N, C_out).
         """
 
-        features = self.embedder(inputs)
-        out = features
+        out = self.embedder(inputs)
 
         if self.has_linear_layer:
-            out = self.fc(features)
+            out = self.fc(out)
 
-        return features, out
+        return out
