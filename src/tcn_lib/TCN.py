@@ -57,7 +57,7 @@ class TCN(nn.Module):
                             residual=residual,
                             zero_init_residual=zero_init_residual))
         
-        self.pool = nn.AvgPool1d(sequence_length)
+        self.pool = nn.AvgPool1d(kernel_size=sequence_length)
 
         self.has_linear_layer = output_size != -1
 
