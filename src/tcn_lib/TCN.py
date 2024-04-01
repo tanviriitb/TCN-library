@@ -3,7 +3,7 @@ from typing import List, Tuple, Union, Final
 import torch
 from torch import nn
 
-from tcn_lib.blocks import LastElement1d, TemporalConvNet
+from tcn_lib.blocks import GlobalAvgPool1d, TemporalConvNet
 
 
 class TCN(nn.Module):
@@ -54,7 +54,7 @@ class TCN(nn.Module):
                             bottleneck=bottleneck,
                             groups=groups,
                             residual=residual,
-                            zero_init_residual=zero_init_residual), LastElement1d())
+                            zero_init_residual=zero_init_residual), GlobalAvgPool1d())
 
         self.has_linear_layer = output_size != -1
 
