@@ -11,6 +11,7 @@ class TCN(nn.Module):
     has_linear_layer : Final[bool]
 
     def __init__(self,
+                 sequence_length: int,
                  input_size: int,
                  output_size: int,
                  channel_sizes: List[Union[int, Tuple[int, int]]],
@@ -54,7 +55,7 @@ class TCN(nn.Module):
                             bottleneck=bottleneck,
                             groups=groups,
                             residual=residual,
-                            zero_init_residual=zero_init_residual), GlobalAvgPool1d())
+                            zero_init_residual=zero_init_residual), GlobalAvgPool1d(kernel_size=sequence_length))
 
         self.has_linear_layer = output_size != -1
 
