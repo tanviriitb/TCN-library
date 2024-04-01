@@ -82,4 +82,4 @@ class TCN(nn.Module):
         if self.has_linear_layer:
             out = self.fc(out)
 
-        return features, out
+        return out
